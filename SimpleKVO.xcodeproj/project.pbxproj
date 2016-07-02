@@ -46,6 +46,7 @@
 		8E8A136B1D2655B800352698 /* NSObject+SimpleKVO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SimpleKVO.m"; sourceTree = "<group>"; };
 		8E8A136D1D2655EA00352698 /* ItemInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemInfo.h; sourceTree = "<group>"; };
 		8E8A136E1D2655EA00352698 /* ItemInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemInfo.m; sourceTree = "<group>"; };
+		8E8A13711D266B7000352698 /* PublicDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PublicDefines.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +88,7 @@
 		8E8A13431D26557E00352698 /* SimpleKVO */ = {
 			isa = PBXGroup;
 			children = (
+				8E8A13711D266B7000352698 /* PublicDefines.h */,
 				8E8A136D1D2655EA00352698 /* ItemInfo.h */,
 				8E8A136E1D2655EA00352698 /* ItemInfo.m */,
 				8E8A13691D2655B800352698 /* SimpleKVO */,
@@ -422,6 +424,7 @@
 				8E8A13651D26557F00352698 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		8E8A13661D26557F00352698 /* Build configuration list for PBXNativeTarget "SimpleKVOTests" */ = {
 			isa = XCConfigurationList;
@@ -430,6 +433,7 @@
 				8E8A13681D26557F00352698 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

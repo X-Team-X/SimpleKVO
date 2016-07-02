@@ -1,12 +1,9 @@
 //
 //  NSObject+SimpleKVO.m
-//  SimpleKVO
+//  ExMobi
 //
-//  Created by dustturtle on 16/7/1.
-//  Simply modified from NSObject+YYAddForKVO.
-//  Thanks to ibireme.
-//  Original project:
-//  YYKit (author ibireme): <https://github.com/ibireme/YYKit>
+//  Created by achen on 16/7/1.
+//
 //
 
 #import "NSObject+SimpleKVO.h"

@@ -1,8 +1,8 @@
 //
 //  NSObject+SimpleKVO.h
-//  SimpleKVO
+//  ExMobi
 //
-//  Created by dustturtle on 16/7/1.
+//  Created by achen on 16/7/1.
 //  Simply modified from NSObject+YYAddForKVO.
 //  Thanks to ibireme.
 //  Original project:

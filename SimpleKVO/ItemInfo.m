@@ -7,15 +7,12 @@
 //
 
 #import "ItemInfo.h"
-//#import "NSObject+YYAddForKVO.h"
 
 @implementation ItemInfo
 
 - (void)dealloc
 {
-    
     NSLog(@"ItemInfo deallocated");
-    //[self removeObserverBlocks];
 }
 
 @end
