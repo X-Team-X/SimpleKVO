@@ -35,13 +35,22 @@ static const int block_key;
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if (self.block != nil)
     {
+        id oldValue = [change objectForKey:NSKeyValueChangeOldKey];
+        if (oldValue == [NSNull null])
+        {
+            oldValue = nil;
+        }
+        
         id newValue = [change objectForKey:NSKeyValueChangeNewKey];
         if (newValue == [NSNull null])
         {
             newValue = nil;
         }
         
-        self.block(newValue);
+        if (oldValue != newValue)
+        {
+            self.block(newValue);
+        }
     }
 }
 
@@ -65,7 +74,7 @@ static const int block_key;
         dic[path] = blockTargetsForPath;
     }
     [blockTargetsForPath addObject:target];
-    [self addObserver:target forKeyPath:path options:NSKeyValueObservingOptionNew context:NULL];
+    [self addObserver:target forKeyPath:path options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:NULL];
 }
 
 - (void)removeKVOForPath:(NSString *)path
