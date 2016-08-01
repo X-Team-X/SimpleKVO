@@ -113,6 +113,8 @@ static const int block_key;
     }];
     
     [dic removeAllObjects];
+    
+    objc_setAssociatedObject(self, &block_key, nil, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 - (NSMutableDictionary *)simpleKVOBlocksLazyLoad
