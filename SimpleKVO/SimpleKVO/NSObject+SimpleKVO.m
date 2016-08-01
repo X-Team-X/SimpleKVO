@@ -66,7 +66,7 @@ static const int block_key;
     }
     
     SimpleKVOBlockTarget *target = [[SimpleKVOBlockTarget alloc] initWithBlock:block];
-    NSMutableDictionary *dic = [self allSimpleKVOBlocks];
+    NSMutableDictionary *dic = [self simpleKVOBlocksLazyLoad];
     NSMutableArray *blockTargetsForPath = dic[path];
     if (!blockTargetsForPath)
     {
@@ -81,7 +81,13 @@ static const int block_key;
 {
     if ([path length] > 0)
     {
-        NSMutableDictionary *dic = [self allSimpleKVOBlocks];
+        NSMutableDictionary *dic = [self simpleKVOBlocks];
+        
+        if (dic == nil)
+        {
+            return;
+        }
+        
         NSMutableArray *arr = dic[path];
         [arr enumerateObjectsUsingBlock: ^(id obj, NSUInteger idx, BOOL *stop) {
             [self removeObserver:obj forKeyPath:path];
@@ -93,7 +99,13 @@ static const int block_key;
 
 - (void)removeAllKVOs
 {
-    NSMutableDictionary *dic = [self allSimpleKVOBlocks];
+    NSMutableDictionary *dic = [self simpleKVOBlocks];
+    
+    if (dic == nil)
+    {
+        return;
+    }
+    
     [dic enumerateKeysAndObjectsUsingBlock: ^(NSString *key, NSArray *arr, BOOL *stop) {
         [arr enumerateObjectsUsingBlock: ^(id obj, NSUInteger idx, BOOL *stop) {
             [self removeObserver:obj forKeyPath:key];
@@ -103,14 +115,56 @@ static const int block_key;
     [dic removeAllObjects];
 }
 
-- (NSMutableDictionary *)allSimpleKVOBlocks
+- (NSMutableDictionary *)simpleKVOBlocksLazyLoad
 {
     NSMutableDictionary *targets = objc_getAssociatedObject(self, &block_key);
-    if (!targets) {
+    
+    if (!targets)
+    {
         targets = [NSMutableDictionary new];
         objc_setAssociatedObject(self, &block_key, targets, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     }
+    
     return targets;
+}
+
+- (NSMutableDictionary *)simpleKVOBlocks
+{
+    return objc_getAssociatedObject(self, &block_key);
+}
+
++(void)load{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        NSString *selString = @"dealloc";
+        NSString *kvoSelString = [@"simpleKVO" stringByAppendingString:selString];
+        Method originalDealloc = class_getInstanceMethod(self, NSSelectorFromString(selString));
+        Method kvoDealloc = class_getInstanceMethod(self, NSSelectorFromString(kvoSelString));
+        method_exchangeImplementations(originalDealloc, kvoDealloc);
+    });
+}
+
+- (BOOL)isSimpleKVO
+{
+    if (objc_getAssociatedObject(self,  &block_key) != nil)
+    {
+        return YES;
+    }
+    else
+    {
+        return NO;
+    }
+}
+
+- (void)simpleKVO_dealloc
+{
+    
+    if ([self isSimpleKVO])
+    {
+        [self removeAllKVOs];
+    }
+    
+    [self simpleKVO_dealloc];
 }
 
 @end
