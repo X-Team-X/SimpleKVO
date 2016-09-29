@@ -9,6 +9,8 @@
 #import "NSObject+SimpleKVO.h"
 #import <objc/runtime.h>
 
+//#define ENABLE_SWIZZ_IN_SIMPLEKVO
+
 static const int block_key;
 
 @interface SimpleKVOBlockTarget : NSObject
@@ -135,7 +137,10 @@ static const int block_key;
     return objc_getAssociatedObject(self, &block_key);
 }
 
-+(void)load{
+#ifdef ENABLE_SWIZZ_IN_SIMPLEKVO
+
++ (void)load
+{
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         NSString *selString = @"dealloc";
@@ -168,6 +173,8 @@ static const int block_key;
     
     [self simpleKVO_dealloc];
 }
+
+#endif
 
 @end
 
