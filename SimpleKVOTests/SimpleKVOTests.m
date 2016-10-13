@@ -27,6 +27,7 @@
     self.testItem.desc = @"A cup of Milk";
     self.testItem.price = @3.2;
     self.testItem.weight = 330.0f;
+    self.testItem.usedTimes = 0;
 }
 
 - (void)tearDown {
@@ -102,7 +103,7 @@
 
 - (void)testNil1
 {
-    XCTestExpectation *KVOExpectation = [self expectationWithDescription:@"testString"];
+    XCTestExpectation *KVOExpectation = [self expectationWithDescription:@"testNil1"];
     @weakify_self;
     [self.testItem addKVOForPath:@"desc" withBlock:^(id newValue) {
         @strongify_self;
@@ -120,7 +121,7 @@
 - (void)testNil2
 {
     self.testItem.desc = nil;
-    XCTestExpectation *KVOExpectation = [self expectationWithDescription:@"testString"];
+    XCTestExpectation *KVOExpectation = [self expectationWithDescription:@"testNil2"];
     @weakify_self;
     [self.testItem addKVOForPath:@"desc" withBlock:^(id newValue) {
         @strongify_self;
@@ -170,11 +171,42 @@
     self.testItem.weight = 660.0f;
 }
 
+// 改变的属性和此前的值相同
+- (void)testEqualChange
+{
+    @weakify_self;
+    [self.testItem addKVOForPath:@"desc" withBlock:^(id newValue) {
+        @strongify_self;
+        XCTFail();
+    }];
+    self.testItem.desc = @"A cup of Milk";
+    
+    //注意：此处的结果和预期不同！
+//    [self.testItem addKVOForPath:@"price" withBlock:^(id newValue) {
+//        @strongify_self;
+//        NSLog(@"newprice = %@", newValue);
+//        XCTFail();
+//    }];
+//    self.testItem.price = @3.2;
+    
+    [self.testItem addKVOForPath:@"weight" withBlock:^(id newValue) {
+        @strongify_self;
+        XCTFail();
+    }];
+    self.testItem.weight = 330.0f;
+    
+    [self.testItem addKVOForPath:@"usedTimes" withBlock:^(id newValue) {
+        @strongify_self;
+        XCTFail();
+    }];
+    self.testItem.usedTimes = 0;
+}
+
 #ifdef ENABLE_SWIZZ_IN_SIMPLEKVO
 // if auto remove not excuted, will trigger crash (failed by crash).
 - (void)testAutoRemove
 {
-    XCTestExpectation *KVOExpectation = [self expectationWithDescription:@"testString"];
+    XCTestExpectation *KVOExpectation = [self expectationWithDescription:@"testAutoRemove"];
     @weakify_self;
     [self.testItem addKVOForPath:@"desc" withBlock:^(id newValue) {
         @strongify_self;
