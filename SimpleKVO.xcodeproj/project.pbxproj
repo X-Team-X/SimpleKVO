@@ -180,9 +180,11 @@
 				TargetAttributes = {
 					8E8A13401D26557E00352698 = {
 						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = 9R7CKNK3WC;
 					};
 					8E8A13591D26557F00352698 = {
 						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = 9R7CKNK3WC;
 						TestTargetID = 8E8A13401D26557E00352698;
 					};
 				};
@@ -363,6 +365,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 9R7CKNK3WC;
 				INFOPLIST_FILE = SimpleKVO/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = test.SimpleKVO;
@@ -374,6 +377,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 9R7CKNK3WC;
 				INFOPLIST_FILE = SimpleKVO/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = test.SimpleKVO;
@@ -385,6 +389,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = 9R7CKNK3WC;
 				INFOPLIST_FILE = SimpleKVOTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = test.SimpleKVOTests;
@@ -397,6 +402,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = 9R7CKNK3WC;
 				INFOPLIST_FILE = SimpleKVOTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = test.SimpleKVOTests;
