@@ -9,8 +9,6 @@
 #import "NSObject+SimpleKVO.h"
 #import <objc/runtime.h>
 
-//#define ENABLE_SWIZZ_IN_SIMPLEKVO
-
 static const int block_key;
 
 @interface SimpleKVOBlockTarget : NSObject
@@ -34,7 +32,8 @@ static const int block_key;
     return self;
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
     if (self.block != nil)
     {
         id oldValue = [change objectForKey:NSKeyValueChangeOldKey];
@@ -144,7 +143,7 @@ static const int block_key;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         NSString *selString = @"dealloc";
-        NSString *kvoSelString = [@"simpleKVO" stringByAppendingString:selString];
+        NSString *kvoSelString = [@"simpleKVO_" stringByAppendingString:selString];
         Method originalDealloc = class_getInstanceMethod(self, NSSelectorFromString(selString));
         Method kvoDealloc = class_getInstanceMethod(self, NSSelectorFromString(kvoSelString));
         method_exchangeImplementations(originalDealloc, kvoDealloc);
