@@ -10,7 +10,7 @@
 
 @interface ItemInfo : NSObject
 
-@property (nonatomic, copy) NSNumber *price;
+@property (nonatomic, strong) NSNumber *price;
 @property (nonatomic, copy) NSString *desc;
 @property (nonatomic, assign) float weight;
 

@@ -12,7 +12,7 @@
 
 - (void)dealloc
 {
-    NSLog(@"ItemInfo deallocated");
+    //NSLog(@"ItemInfo deallocated");
 }
 
 @end
