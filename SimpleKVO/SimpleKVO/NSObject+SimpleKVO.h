@@ -21,7 +21,7 @@
 
 #import <Foundation/Foundation.h>
 
-#define ENABLE_SWIZZ_IN_SIMPLEKVO
+//#define ENABLE_SWIZZ_IN_SIMPLEKVO
 
 @interface NSObject (SimpleKVO)
 
