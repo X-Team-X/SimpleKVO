@@ -14,4 +14,7 @@
 @property (nonatomic, copy) NSString *desc;
 @property (nonatomic, assign) float weight;
 
+// 使用过的次数
+@property (nonatomic, assign) NSUInteger usedTimes;
+
 @end

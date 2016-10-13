@@ -215,4 +215,40 @@
     }];
 }
 
+- (void)testConcurrent
+{
+    self.testItem.usedTimes = 0;
+
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul);
+    NSInteger dispatchTarget = 1000;
+    __block NSInteger completionCount = 0;
+    __block NSInteger callbackCount = 0;
+    
+    [self.testItem addKVOForPath:@"usedTimes" withBlock:^(id newValue)
+     {
+         dispatch_sync(dispatch_get_main_queue(), ^{
+             callbackCount++;
+         });
+     }];
+
+    for (NSUInteger i = 1; i < dispatchTarget; i++)
+    {
+        dispatch_async(queue, ^{
+            self.testItem.usedTimes = i;
+            //NSLog(@"Current usedTimes: %zd", i);
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                completionCount++;
+            });
+        });
+    }
+    
+    while (completionCount < dispatchTarget - 1)
+    {
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+    }
+
+    //NSLog(@"completionCount = %zd, callbackCount = %zd", completionCount, callbackCount);
+    XCTAssertTrue(completionCount == callbackCount);
+}
+
 @end
