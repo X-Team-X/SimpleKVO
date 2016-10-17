@@ -48,7 +48,17 @@ static const int block_key;
             newValue = nil;
         }
         
-        if (oldValue != newValue)
+        if (oldValue == nil && newValue == nil)
+        {
+            return;
+        }
+        
+        if (oldValue == nil || newValue == nil)
+        {
+            self.block(newValue);
+        }
+        // 根据测试发现这里所有的基本类型值都被系统自动转换成了NSXXX,因此可以对其使用isEqual进行比较。
+        else if (![oldValue isEqual:newValue])
         {
             self.block(newValue);
         }

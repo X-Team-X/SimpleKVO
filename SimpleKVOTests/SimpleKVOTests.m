@@ -28,6 +28,7 @@
     self.testItem.price = @3.2;
     self.testItem.weight = 330.0f;
     self.testItem.usedTimes = 0;
+    self.testItem.size = CGRectZero;
 }
 
 - (void)tearDown {
@@ -175,6 +176,7 @@
 - (void)testEqualChange
 {
     @weakify_self;
+    
     [self.testItem addKVOForPath:@"desc" withBlock:^(id newValue) {
         @strongify_self;
         XCTFail();
@@ -182,12 +184,12 @@
     self.testItem.desc = @"A cup of Milk";
     
     //注意：此处的结果和预期不同！
-//    [self.testItem addKVOForPath:@"price" withBlock:^(id newValue) {
-//        @strongify_self;
-//        NSLog(@"newprice = %@", newValue);
-//        XCTFail();
-//    }];
-//    self.testItem.price = @3.2;
+    [self.testItem addKVOForPath:@"price" withBlock:^(id newValue) {
+        @strongify_self;
+        NSLog(@"newprice = %@", newValue);
+        XCTFail();
+    }];
+    self.testItem.price = @3.2;
     
     [self.testItem addKVOForPath:@"weight" withBlock:^(id newValue) {
         @strongify_self;
@@ -200,6 +202,12 @@
         XCTFail();
     }];
     self.testItem.usedTimes = 0;
+    
+    [self.testItem addKVOForPath:@"size" withBlock:^(id newValue) {
+        @strongify_self;
+        XCTFail();
+    }];
+    self.testItem.size = CGRectZero;
 }
 
 #ifdef ENABLE_SWIZZ_IN_SIMPLEKVO

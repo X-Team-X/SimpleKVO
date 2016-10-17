@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @interface ItemInfo : NSObject
 
@@ -16,5 +17,8 @@
 
 // 使用过的次数
 @property (nonatomic, assign) NSUInteger usedTimes;
+
+// 尺寸
+@property (nonatomic, assign) CGRect size;
 
 @end
