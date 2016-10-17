@@ -137,6 +137,17 @@
     }];
 }
 
+- (void)testNil3
+{
+    self.testItem.desc = nil;
+    @weakify_self;
+    [self.testItem addKVOForPath:@"desc" withBlock:^(id newValue) {
+        @strongify_self;
+        XCTFail();
+    }];
+    self.testItem.desc = nil;
+}
+
 - (void)testRemove
 {
     // code coverage for remove (no crash is ok)
@@ -144,7 +155,6 @@
     [self.testItem removeKVOForPath:@""];
     [self.testItem removeKVOForPath:@"desc"];
     [self.testItem removeAllKVOs];
-    
     
     @weakify_self;
     [self.testItem addKVOForPath:@"desc" withBlock:^(id newValue)
